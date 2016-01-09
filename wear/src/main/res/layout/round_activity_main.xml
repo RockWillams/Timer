@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    tools:deviceIds="wear_round">
+    <android.support.wearable.view.WearableListView
+        android:id="@+id/list"
+        android:background="#777"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/hello_round" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/sample"
+        android:layout_marginLeft="10dp"
+        android:radius="5dip"
+        android:layout_gravity="center|left"
+        android:background="@mipmap/information"/>
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/voice"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center|right"
+        android:background="@mipmap/record"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history"
+        android:radius="5dip"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom|center"
+        android:background="@mipmap/voice"/>
+
+
+</FrameLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Timer</string>
+    <string name="hello_round">Hello Round World111!</string>
+    <string name="hello_square">Hello Square World222!</string>
+    <string name="voice">语音</string>
+    <string name="title_activity_detail_notif">DetailNotif</string>
+</resources>
