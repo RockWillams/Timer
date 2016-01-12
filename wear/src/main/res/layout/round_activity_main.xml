@@ -26,7 +26,7 @@
     <ImageButton
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/voice"
+        android:id="@+id/history"
         android:layout_marginRight="10dp"
         android:layout_gravity="center|right"
         android:background="@mipmap/record"/>
@@ -34,7 +34,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/history"
+        android:id="@+id/voice"
         android:radius="5dip"
         android:layout_marginBottom="10dp"
         android:layout_gravity="bottom|center"

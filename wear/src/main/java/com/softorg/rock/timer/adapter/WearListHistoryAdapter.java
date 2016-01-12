@@ -1,10 +1,10 @@
 package com.softorg.rock.timer.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.wearable.view.WearableListView;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.softorg.rock.timer.R;
-
-import com.softorg.rock.timer.activity.DetailNotif;
-import com.softorg.rock.timer.activity.DetailNotif_;
-import com.softorg.rock.timer.activity.MainActivity;
+import com.softorg.rock.timer.activity.HistoryActivity;
 import com.softorg.rock.timer.bean.Distance;
 import com.softorg.rock.timer.bean.MyItem;
 import com.softorg.rock.timer.layout.MyItemView;
@@ -26,10 +23,11 @@ import java.util.List;
 /**
  * Created by Rock on 2016/1/7.
  */
-public class WearListAdapter extends WearableListView.Adapter {
+public class WearListHistoryAdapter extends WearableListView.Adapter {
 
     private final Context context;
     private final List<MyItem> items;
+
 
 
 
@@ -38,9 +36,10 @@ public class WearListAdapter extends WearableListView.Adapter {
     private static final int FLING_MIN_DISTANCE = 50;
     private static final int FLING_MIN_VELOCITY = 0;
 
-    public WearListAdapter(Context context, List<MyItem> items) {
+    public WearListHistoryAdapter(Context context, List<MyItem> items) {
         this.context = context;
         this.items = items;
+
     }
 
     public static class ItemViewHolder extends WearableListView.ViewHolder {
@@ -86,16 +85,27 @@ public class WearListAdapter extends WearableListView.Adapter {
                     } else if(distance.y2 -distance. y1 > 50) {
                         //Toast.makeText(MainActivity.this, "向下滑", Toast.LENGTH_SHORT).show();
                     } else if(distance.x1 -distance. x2 > 50) {
-                        View viewGroupFocusedChild = viewGroup.getFocusedChild();
-                        Intent intent  = new Intent(context, DetailNotif_.class);
-                        intent.putExtra("icon",((ImageView)v.findViewById(R.id.icon)).getResources().toString());
-                        intent.putExtra("lefttime",((TextView)v.findViewById(R.id.leftTime)).getText().toString());
-                        intent.putExtra("notification",((TextView)v.findViewById(R.id.notification)).getText().toString());
-                        intent.putExtra("date",((TextView)v.findViewById(R.id.date)).getText().toString());
-                        intent.putExtra("content",((TextView)v.findViewById(R.id.content)).getText().toString());
-                        intent.putExtra("time",((TextView)v.findViewById(R.id.time)).getText().toString());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                     /*   MyDialogFragment dialogFragment = new MyDialogFragment();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.add(dialogFragment,"dialog");
+                        transaction.commit();*/
+                        AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                        alert.setTitle("공지");
+                        alert.setMessage("회원에게 알림");
+
+                        alert.setPositiveButton("확인", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                Toast.makeText(context, "처리중", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        alert.setNegativeButton("취소", null);
+
+                        alert.show();
+
                     }
                 }
 
@@ -129,4 +139,25 @@ public class WearListAdapter extends WearableListView.Adapter {
     public int getItemCount() {
         return items.size();
     }
+
+
+    protected void dialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+          builder.setMessage("确认退出吗？");
+        builder.setTitle("提示");
+       builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                  }
+            });
+          builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+              @Override
+               public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                   }
+              });
+          builder.create().show();
+         }
 }

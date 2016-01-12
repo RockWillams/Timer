@@ -2,14 +2,19 @@ package com.softorg.rock.timer.layout;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.text.Layout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.wearable.view.WatchViewStub;
 import android.support.wearable.view.WearableListView;
 import com.softorg.rock.timer.R;
+import com.softorg.rock.timer.activity.DetailNotif_;
 
 /**
  * Created by Rock on 2016/1/7.
@@ -24,15 +29,17 @@ public final class MyItemView extends RelativeLayout implements WearableListView
      TextView leftTime;
 
 
-    public MyItemView(Context context) {
+    public MyItemView(final Context context) {
         super(context);
-        View.inflate(context, R.layout.list_item, this);
+        View m = View.inflate(context, R.layout.list_item, this);
+
         icon = (ImageView) findViewById(R.id.icon);
         notification = (TextView) findViewById(R.id.notification);
         time = (TextView) findViewById(R.id.time);
         date = (TextView) findViewById(R.id.date);
         content = (TextView) findViewById(R.id.content);
         leftTime = (TextView) findViewById(R.id.leftTime);
+
 
     }
 
