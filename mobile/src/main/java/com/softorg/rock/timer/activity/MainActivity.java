@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
 
         //初始化TabLayout的title数据集
         List<String> titles = new ArrayList<>();
-        titles.add("新提醒");
+        titles.add("提醒");
         titles.add("过期");
         titles.add("事件树");
         //初始化TabLayout的title
