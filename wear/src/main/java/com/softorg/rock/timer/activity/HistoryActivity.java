@@ -33,7 +33,7 @@ public class HistoryActivity extends Activity {
             public void onLayoutInflated(WatchViewStub watchViewStub) {
 
                 WearableListView mList  = (WearableListView) findViewById(R.id.list_history);
-                mList.setAdapter(new WearListHistoryAdapter(getBaseContext(),getData()));
+                mList.setAdapter(new WearListHistoryAdapter(HistoryActivity.this,getData()));
             }
         });
     }

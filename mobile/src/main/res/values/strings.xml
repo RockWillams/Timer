@@ -1,4 +1,64 @@
 <resources>
     <string name="app_name">Timer</string>
     <string name="action_settings">Settings</string>
+
+    <string name="hello_round">Hello Round World111!</string>
+    <string name="hello_square">Hello Square World222!</string>
+    <string name="voice">语音</string>
+    <string name="title_activity_detail_notif">DetailNotif</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_fire_missiles">要删除本条记录吗？</string>
+    <string name="cancel">取消</string>
+    <string name="fire">确定</string>
+
+
+
+    <string name="common_username">用户名</string>
+    <string name="common_username_hint">请输入您的用户名</string>
+    <string name="common_password">密码</string>
+    <string name="common_password_hint">请输入您的密码</string>
+    <string name="common_error_net">对不起，我们似乎没法连接上服务器，请您检查网络连接后再继续操作</string>
+    <string name="common_error_data_error">对不起，服务器数据异常，请稍后再试</string>
+
+    <string name="aty_car_list_title">车辆列表</string>
+    <string name="aty_car_list_search_carname_hint">输入车号进行查询</string>
+    <string name="aty_car_list_search_isonline_all">全部</string>
+    <string name="aty_car_list_search_isonline_online">在线</string>
+    <string name="aty_car_list_search_isonline_offline">离线</string>
+    <string name="aty_car_list_back_with_condition">在地图上显示全部结果</string>
+
+    <string name="aty_login_login">登\t\t录</string>
+    <string name="aty_login_savePassword">保存密码</string>
+    <string name="aty_login_progress_dialog">正在为您登录，请稍后……</string>
+    <string name="aty_login_success">登录成功！</string>
+    <string name="aty_login_error_username">用户名不存在，请先在PC端注册</string>
+    <string name="aty_login_error_password">密码错误</string>
+
+    <string name="aty_car_main_search_hint">输入地名查询</string>
+
+    <string name="aty_warning_title">报警日志</string>
+
+    <string name="aty_collection_title">我的收藏</string>
+
+    <string name="aty_settings_title">程序设置</string>
+
+    <string name="aty_start_copyright">©2015\软橙科技</string>
 </resources>
