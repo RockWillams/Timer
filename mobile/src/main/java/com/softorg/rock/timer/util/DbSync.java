@@ -22,6 +22,7 @@ import com.softorg.rock.timer.R;
 import com.softorg.rock.timer.activity.MainActivity;
 
 import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,21 +47,28 @@ public class DbSync {
     List<Version> versionList;
 
 
-    public void  DbSync(Context context, RockApplication application){
+    public   DbSync(Context context){   //构造方法不能有类型  例如 int  void 等  更不能return
+        localVersion = new Version();
         this.context = context;
         mQueue = NetworkUtil.getVolleyRequestQueue(this.context);
         versionService = DbUtil.getVersionService();
-        this.application = application;
+        application = (RockApplication)this.context.getApplicationContext();
         Query query = versionService.queryBuilder().where(VersionDao.Properties.Status.eq("1")).build();
         if(query.list().size()!=0){
            localVersion = (Version) query.list().get(0);
+            versionService.save(localVersion);
         }
-        else localVersion.setLatestVersion("0");
+        else{
+            localVersion.setLatestVersion("0");
+            versionService.save(localVersion);
+        }
+
 
 
     }
 
-    public void init(RockApplication application){
+    @Background
+    public void init(){
 
         String url = NetworkUtil.HTTP_SERVER + NetworkUtil.SERVER_PAGE_VERSION +"?key="+application.getUser().getKey()+"&"+"clientversion="+localVersion.getLatestVersion();
         mQueue.add(new StringRequest(Request.Method.GET,url,new Response.Listener<String>(){
@@ -117,8 +125,9 @@ public class DbSync {
             public void onErrorResponse(VolleyError error)
             {
                 //pd.dismiss();
+                error.printStackTrace();
 
-               // GeneralUtil.showToast(LoginActivity.this, R.string.common_error_net + error.getCause().toString(), Toast.LENGTH_LONG);
+               GeneralUtil.showToast(context, R.string.common_error_net + error.getCause().toString(), Toast.LENGTH_LONG);
             }
 
         }));

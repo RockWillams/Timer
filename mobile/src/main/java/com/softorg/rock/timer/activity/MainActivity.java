@@ -16,37 +16,53 @@ import android.view.MenuItem;
 
 import com.softorg.rock.timer.R;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.NoTitle;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
+@NoTitle
+@Fullscreen
+@EActivity(R.layout.activity_main)
 public class MainActivity extends ActionBarActivity {
+
+
+
+
+
     //将ToolBar与TabLayout结合放入AppBarLayout
-    private Toolbar mToolbar;
+    @ViewById(R.id.tool_bar)
+    Toolbar mToolbar;
+
     //DrawerLayout中的左侧菜单控件
-    private NavigationView mNavigationView;
+    @ViewById(R.id.navigation_view)
+    NavigationView mNavigationView;
     //DrawerLayout控件
-    private DrawerLayout mDrawerLayout;
+
+    @ViewById(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+
     //Tab菜单，主界面上面的tab切换菜单
-    private TabLayout mTabLayout;
+    @ViewById(R.id.tab_layout)
+    TabLayout mTabLayout;
+
     //v4中的ViewPager控件
-    private ViewPager mViewPager;
+    @ViewById(R.id.view_pager)
+    ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //初始化控件及布局
-        initView();
+
     }
 
-    private void initView() {
-        //MainActivity的布局文件中的主要控件初始化
-        mToolbar = (Toolbar) this.findViewById(R.id.tool_bar);
-        mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
-        mNavigationView = (NavigationView) this.findViewById(R.id.navigation_view);
-        mTabLayout = (TabLayout) this.findViewById(R.id.tab_layout);
-        mViewPager = (ViewPager) this.findViewById(R.id.view_pager);
+
+    @AfterViews
+    void initView() {
 
         //初始化ToolBar
         setSupportActionBar(mToolbar);

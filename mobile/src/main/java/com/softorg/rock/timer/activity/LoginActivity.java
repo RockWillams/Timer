@@ -2,6 +2,7 @@ package com.softorg.rock.timer.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Window;
 import android.widget.EditText;
@@ -13,8 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.entity.User;
+import com.entity.UserDao;
 import com.entity.UserService;
 import com.softorg.rock.timer.R;
+import com.softorg.rock.timer.util.CodeConstance;
 import com.softorg.rock.timer.util.DbSync;
 import com.softorg.rock.timer.util.DbUtil;
 import com.softorg.rock.timer.util.GeneralUtil;
@@ -32,6 +35,7 @@ import org.androidannotations.annotations.WindowFeature;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 
 
 @WindowFeature(
@@ -52,7 +56,9 @@ public class LoginActivity extends Activity
 
 	private ProgressDialog pd;
 
-	@Bean
+	Context mcontext;
+
+
 	DbSync dbSync;
 
 
@@ -62,6 +68,16 @@ public class LoginActivity extends Activity
 	{
 		mQueue = NetworkUtil.getVolleyRequestQueue(this);
 		userService= DbUtil.getUserService();
+
+		List<User> userList = userService.queryBuilder().where(UserDao.Properties.Status.eq(CodeConstance.OLINE_STATUS_ONLINE)).list();
+		if(1 == userList.size()){
+			((RockApplication)getApplication()).setUser(userList.get(0));
+			dbSync = new DbSync(this);
+			dbSync.init();
+			GeneralUtil.showToast(LoginActivity.this, R.string.aty_login_success, Toast.LENGTH_SHORT);
+			LoginActivity.this.startActivity(new Intent(LoginActivity.this,MainActivity_.class));
+			LoginActivity.this.finish(); // TODO 进入主页面，存储userid
+		}
 	}
 
 	@Click
@@ -86,29 +102,39 @@ public class LoginActivity extends Activity
 						jObject = new JSONObject(response);
 						JSONObject status = jObject.getJSONObject("status");// （0，成功；1，用户名不存在；2，密码错误）
 						if ("Success".equals(status.getString("reason")))
-						{
-							User user  = new User();
-							String key = jObject.getJSONObject("result").getString("key");
-							user.setKey(key);
-							user.setName(username);
-							user.setPassword(password);
-							user.setStatus("1");//online
-							userService.save(user);
+						{	String key = jObject.getJSONObject("result").getString("key");
+							List<User> userList = userService.queryBuilder().where(UserDao.Properties.Status.eq(CodeConstance.OLINE_STATUS_ONLINE)).list();
+							for(User user : userList){
+								user.setStatus("0");
+							}
+							userService.update(userList);
+
+							User user =  userService.queryBuilder().where(UserDao.Properties.Name.eq(username)).list().get(0);
+							if(user != null){
+								user.setStatus("1");
+								user.setPassword(password);
+								userService.update(user);
+							}else {
+								user = new User();
+								user.setName(username);
+								user.setPassword(password);
+								user.setKey(key);
+								userService.save(user);
+							}
+
+
 							((RockApplication)getApplication()).setUser(user);
 
 
 							GeneralUtil.showToast(LoginActivity.this, R.string.aty_login_success, Toast.LENGTH_SHORT);
-							LoginActivity.this.startActivity(new Intent(LoginActivity.this,MainActivity.class));
+							LoginActivity.this.startActivity(new Intent(LoginActivity.this,MainActivity_.class));
 							LoginActivity.this.finish(); // TODO 进入主页面，存储userid
 
 							//dao.setUserid(userid);
-						} /*else if ("1".equals(code))
+						} else
 						{
-							GeneralUtil.showToast(LoginActivity.this, R.string.aty_login_error_username, Toast.LENGTH_LONG);
-						} else if ("2".equals(code))
-						{
-							GeneralUtil.showToast(LoginActivity.this, R.string.aty_login_error_password, Toast.LENGTH_LONG);
-						} // TODO 其它错误*/
+							GeneralUtil.showToast(LoginActivity.this, R.string.aty_login_error_username, Toast.LENGTH_SHORT);
+						}
 					} catch (JSONException e)
 					{
 						// TODO Auto-generated catch block

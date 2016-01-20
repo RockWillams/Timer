@@ -84,7 +84,7 @@ public class ExampleDaoGenerator {
         event.addStringProperty("content");
         event.addStringProperty("notifyTime");
         event.addStringProperty("mode");
-        event.addStringProperty("status");// 0 æœªè¿‡æœŸå¼€æé†’ 1 æœªè¿‡æœŸå…³æé†’ 2 å·²è¿‡æœŸï¼ˆå†å²ï¼‰
+        event.addStringProperty("status");// 0 Î´¹ıÆÚ¿ªÌáĞÑ 1 Î´¹ıÆÚ¹ØÌáĞÑ 2 ÒÑ¹ıÆÚ£¨ÀúÊ·£©
     }
 
     private  static  void addLog(Schema schema){

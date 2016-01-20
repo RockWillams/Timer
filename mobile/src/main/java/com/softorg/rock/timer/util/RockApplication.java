@@ -42,9 +42,7 @@ public class RockApplication extends Application
     }
 
 
-    public void init(){
-        dbSync.init(this);
-    }
+
 
     public void setValue(String value)
     {
